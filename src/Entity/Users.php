@@ -22,6 +22,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
+    #[ORM\Column (type: 'json')]
+    private $roles = [];
+
     /**
      * @var string The hashed password
      */
@@ -36,6 +39,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(options:['default'=> 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $created_at = null;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
